@@ -1,0 +1,15 @@
+services:
+  ecommerce-copilot:
+    build: .
+    container_name: ecommerce_copilot_app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./ecommerce_oltp.db:/app/ecommerce_oltp.db
+      - ./ecommerce_analytics.duckdb:/app/ecommerce_analytics.duckdb
+      - ./langgraph_checkpoints.db:/app/langgraph_checkpoints.db
+      - ./public:/app/public
+      - ./.chainlit:/app/.chainlit
+    restart: unless-stopped

@@ -1,0 +1,169 @@
+/* ---------------------------------------------------------------------
+   Internal E-Commerce Operations Copilot — Executive Enterprise Theme
+   --------------------------------------------------------------------- */
+
+:root {
+  --ops-bg: #0b0e14;
+  --ops-panel: #131722;
+  --ops-panel-alt: #171c2b;
+  --ops-border: #232a3d;
+  --ops-accent: #4f8ef7;
+  --ops-accent-dark: #2f5fc4;
+  --ops-text: #e6e9f0;
+  --ops-text-muted: #9aa4b8;
+  --ops-danger: #f75c5c;
+  --ops-warning: #f7b84f;
+  --ops-success: #4fd18b;
+  --ops-radius: 12px;
+}
+
+body {
+  background: linear-gradient(180deg, var(--ops-bg) 0%, #0e1220 100%) !important;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  color: var(--ops-text) !important;
+}
+
+/* Header bar */
+header {
+  background: var(--ops-panel) !important;
+  border-bottom: 1px solid var(--ops-border) !important;
+}
+
+/* Chat message bubbles */
+.step, .message, [class*="MessageContainer"] {
+  border-radius: var(--ops-radius) !important;
+}
+
+[class*="message-content"], .markdown-body {
+  background: var(--ops-panel) !important;
+  border: 1px solid var(--ops-border) !important;
+  border-radius: var(--ops-radius) !important;
+  padding: 16px 18px !important;
+  line-height: 1.55 !important;
+}
+
+.markdown-body h3 {
+  color: var(--ops-accent) !important;
+  border-bottom: 1px solid var(--ops-border);
+  padding-bottom: 6px;
+  margin-top: 0 !important;
+}
+
+.markdown-body strong {
+  color: #ffffff;
+}
+
+/* Collapsible technical SQL accordion */
+.markdown-body details {
+  background: var(--ops-panel-alt);
+  border: 1px dashed var(--ops-border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-top: 12px;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+  color: var(--ops-accent);
+  font-weight: 600;
+  outline: none;
+}
+
+.markdown-body details[open] summary {
+  margin-bottom: 8px;
+}
+
+.markdown-body pre {
+  background: #0a0d15 !important;
+  border: 1px solid var(--ops-border) !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  overflow-x: auto;
+}
+
+.markdown-body code {
+  color: #cfe2ff;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+}
+
+/* Tables (query results) */
+.markdown-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.markdown-body th {
+  background: var(--ops-panel-alt);
+  color: var(--ops-accent);
+  text-align: left;
+  padding: 8px 10px;
+  border: 1px solid var(--ops-border);
+}
+
+.markdown-body td {
+  padding: 7px 10px;
+  border: 1px solid var(--ops-border);
+  color: var(--ops-text);
+}
+
+.markdown-body tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Approval / risk callouts styled via emoji-led h3s in the card content */
+.markdown-body h3:has(+ p) {
+  color: var(--ops-warning) !important;
+}
+
+/* Action buttons (Confirm / Cancel) */
+[class*="ActionButton"], button[class*="action"] {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+[class*="ActionButton"]:hover, button[class*="action"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(79, 142, 247, 0.35);
+}
+
+/* Primary send button + inputs */
+textarea, input {
+  background: var(--ops-panel) !important;
+  border: 1px solid var(--ops-border) !important;
+  color: var(--ops-text) !important;
+  border-radius: 10px !important;
+}
+
+textarea:focus, input:focus {
+  border-color: var(--ops-accent) !important;
+  box-shadow: 0 0 0 2px rgba(79, 142, 247, 0.25) !important;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ops-border);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Subtle branding tag in the composer area */
+#chat-input::before {
+  content: "SECURE INTERNAL TOOL — HITL GUARDRAILS ACTIVE";
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--ops-text-muted);
+  margin-bottom: 4px;
+}

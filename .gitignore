@@ -1,0 +1,19 @@
+# secrets
+.env
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# chainlit runtime
+.files/
+
+# db wal/journal files (runtime state, regenerate hote hain)
+*.db-shm
+*.db-wal
+langgraph_checkpoints.db
+
+# os
+.DS_Store

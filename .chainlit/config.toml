@@ -1,0 +1,48 @@
+[project]
+enable_telemetry = false
+user_env = []
+session_timeout = 3600
+
+[features]
+unsafe_allow_html = true
+latex = false
+
+[features.spontaneous_file_upload]
+enabled = false
+
+[UI]
+name = "Ops Copilot"
+description = "Internal E-Commerce Operations Copilot — Text-to-SQL with Human-in-the-Loop Guardrails"
+default_collapse_content = true
+hide_cot = true
+custom_css = "/public/custom.css"
+
+[UI.theme]
+default = "dark"
+layout = "wide"
+font_family = "Inter, sans-serif"
+
+[UI.theme.dark]
+background = "#0B0E14"
+paper = "#131722"
+
+[UI.theme.dark.primary]
+main = "#4F8EF7"
+dark = "#2F5FC4"
+light = "#8FB6FF"
+
+[UI.theme.dark.text]
+primary = "#E6E9F0"
+secondary = "#9AA4B8"
+
+[UI.theme.light]
+background = "#F5F7FA"
+paper = "#FFFFFF"
+
+[UI.theme.light.primary]
+main = "#2F5FC4"
+dark = "#1E3F8F"
+light = "#4F8EF7"
+
+[meta]
+generated_by = "custom"
