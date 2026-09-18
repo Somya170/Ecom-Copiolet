@@ -76,6 +76,13 @@ There are two engines available:
 {DUCKDB_SCHEMA}
 
 Critical Rules:
+- FIRST, decide if the request is actually answerable using the two databases below.
+  Assume the user can ask absolutely anything — general knowledge questions, jokes,
+  personal opinions, requests unrelated to e-commerce, or gibberish. If the request is
+  NOT something the two schemas below can answer, output engine="sqlite", sql="", and
+  in rationale write a short, friendly message explaining you can only help with live
+  orders/stock/customers or historical sales analytics. Do NOT invent a SQL query for
+  an out-of-scope request just to produce something.
 - Choose exactly one engine per request.
 - Never invent tables or columns that are not listed above.
 - When calculating aggregates like SUM(), AVG(), or margins, always wrap the expression in ROUND(..., 2) so values stay clean with 2 decimal places.
@@ -165,6 +172,34 @@ class GraphState(TypedDict, total=False):
 # --------------------------------------------------------------------------
 # Node: Dynamic Router & SQL Generator
 # --------------------------------------------------------------------------
+CAPABILITY_MESSAGE = """I can help you with two kinds of things:
+
+1. **Live store operations** (orders, stock, customers) — e.g. *"What is the current stock for Fitness Smartwatch?"* or *"Mark all pending orders older than 20 days as cancelled."*
+2. **Historical sales analytics** — e.g. *"Show me total revenue by category for the last quarter."*
+
+Any write operation (like cancelling orders) will always ask for your approval first, with a plain-English explanation of what it will change.
+
+I can't help with things unrelated to this store's orders, inventory, customers, or sales data — for those, I'll let you know it's outside what I can do."""
+
+CAPABILITY_TRIGGERS = [
+    "what can you do",
+    "what can i ask",
+    "what kind of question",
+    "what questions can i ask",
+    "what can you help",
+    "what do you do",
+    "how do you work",
+    "what are you",
+    "your capabilities",
+    "what can you answer",
+]
+
+
+def _is_capability_question(query: str) -> bool:
+    q = query.strip().lower()
+    return any(trigger in q for trigger in CAPABILITY_TRIGGERS)
+
+
 def router_node(state: GraphState) -> Dict[str, Any]:
     query = state["user_query"].strip()
 
@@ -175,6 +210,17 @@ def router_node(state: GraphState) -> Dict[str, Any]:
             "rationale": "Greeting",
             "error": None,
             "final_message": "Hello! I am your E-Commerce Operations Copilot. How can I help you with live store orders, inventory, or analytics today?",
+            "execution_result": {},
+            "approved": None,
+        }
+
+    if _is_capability_question(query):
+        return {
+            "engine": "sqlite",
+            "sql": "",
+            "rationale": "Capability question",
+            "error": None,
+            "final_message": CAPABILITY_MESSAGE,
             "execution_result": {},
             "approved": None,
         }
