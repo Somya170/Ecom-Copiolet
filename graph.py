@@ -197,7 +197,16 @@ CAPABILITY_TRIGGERS = [
 
 def _is_capability_question(query: str) -> bool:
     q = query.strip().lower()
-    return any(trigger in q for trigger in CAPABILITY_TRIGGERS)
+    if any(trigger in q for trigger in CAPABILITY_TRIGGERS):
+        return True
+    # Broader heuristic: catches paraphrases like "what type of question can I
+    # ask", "suggest me some questions", "give me example questions" that don't
+    # match the fixed phrase list above.
+    mentions_question_word = any(w in q for w in ["question", "ask"])
+    mentions_meta_intent = any(
+        w in q for w in ["suggest", "example", "sample", "type of", "kind of", "should i"]
+    )
+    return mentions_question_word and mentions_meta_intent
 
 
 def router_node(state: GraphState) -> Dict[str, Any]:

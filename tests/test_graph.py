@@ -148,6 +148,10 @@ class TestRouterEdgeInputs:
             "What can you help with?",
             "what can you do",
             "how do you work?",
+            "What type of question i can ask?",
+            "Suggest me some question that i can ask",
+            "give me some example questions",
+            "what should I ask you",
         ],
     )
     def test_capability_question_answered_without_llm_call(self, text):
